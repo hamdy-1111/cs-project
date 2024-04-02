@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Vault</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="preloader">
+        <div id="circle">
+        <div class="loader">
+            <div class="loader">
+                <div class="loader">
+                    
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+<div class="container">
+<div class="sys">
+    <h1>Password</h1>
+<div class="auth"><!--  -->
+    <h1 class="hidden">
+        open the system
+    </h1>
+    <div class="input-text">
+    <!--     <label for="masterKey"></label><br>
+    -->    <input type="text" id="adminname" placeholder="Admin name" >
+    <i class='bx bx-user'></i>
+    </div>
+    <div class="input-text">
+    <!--     <label for="masterKey"></label><br>
+    -->    <input type="text" id="adminId" placeholder="Admin id" >
+    <i class='bx bxs-id-card'></i>
+    </div>
+    <div class="input-text">
+        <input type="password" id="masterKey" placeholder="Master key" required>
+        <i class='bx bxs-key' ></i>
+    </div>
+    <button onclick="validateAdmin()" class="btn">login</button>
+</div>
+<div class="op" id="adminActions" ><!-- style="display:none" -->
+<div id="passwordInput" style="display: none;">
+    <div class="input-text">
+    <input type="text" id="domain" placeholder="Domain">
+    </div>
+    <div class="input-text">
+    <input type="password" id="password" placeholder="Password">
+    </div>
+    <button id="storeButton">Store Password</button>
+</div>
+
+<div id="retrieveDomain" style="display: none;">
+    <div class="input-text">
+    <input type="text" id="retrieveDomainInput" placeholder="domain" title="put the domain and get password">
+    </div>
+    <button id="retrieveButton">Retrieve Password</button>
+    <div class="vault">
+        <div class="cell guide">
+            <p class="domainPW guide-pw">password</p>
+            <p class="domainNM guide-nm">Domain name</p>
+    </div>
+    <div class="vault-after"></div>
+    </div>
+    <div id="output"></div>
+</div>
+
+</div>
+</div>
+
+<div class="board">
+    <img src="log in.jpeg" alt="">
+    <div class="btn" style="display:none;">
+        <button  id="addButton"><span>add</span><i></i></button>
+        <button  id="getButton"><span>get</span><i></i></button>
+    </div>
+</div>
+</div>
+
+    <!-- Log section -->
+<div id="siem" >
+    <h2 style="display: none;" class="hidden">SIEM</h2>
+</div>
+<div class="canvas" style="display: none;">
+    <canvas id="actionChart" ></canvas>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- Include CryptoJS library for cryptographic operations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,556 @@
+body{
+    background: url(wallpaper-blue-background-dark.jpg) no-repeat ;
+    background-size: cover;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins",sans-serif;
+    scroll-behavior: smooth;
+}
+.container{
+    background: url(d.jpg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% ,-50%);
+    border-radius: 15px;
+    width: 800px;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    z-index: 55;
+}
+.container::after{
+    content: '';
+    width: 1001px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.53);
+    z-index: -1;
+    position: absolute;
+    left: 0;
+}
+.container .board{
+    position: absolute;
+    left: 60%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 13px ;
+    top: -40px;
+}
+.container .board img{
+    width: 70%;
+    position: absolute;
+    left: -20%;
+}
+.container .board::after{
+    content: 'Vault';
+    position: absolute;
+    top: 1%;
+    left :4%;
+    font-weight:700;
+    font-size: 4.5rem;
+    letter-spacing: 2px;
+    color: #3f51b5;
+}
+.container .sys h1{
+    position: absolute;
+    top: 3%;
+    left :28%;
+    font-weight:700;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    color: #001115;
+    text-shadow: 0 0 3px #3f51b5;
+}
+.container .sys .auth{
+    position: absolute;
+    top: 15%;
+    left: 4%;
+    width: 420px;
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 30px 40px;
+    transition: 1s;
+}
+.container .sys .auth:hover{
+}
+.container .sys .auth h1{
+    font-size: 36px;
+    text-align: center;
+    font-weight: normal;
+    position: relative;/* #### */
+    left: 50%;
+    transform: translate(-50%);
+    width: 350px;
+    text-shadow: 0 0 15px white;
+}
+:nth-child(2){
+    margin-top: 40px;
+}
+.input-text{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+.input-text input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #097993;
+    padding: 20px 45px 20px 20px;
+}
+.input-text input::-webkit-input-placeholder{
+    color: rgba(255, 255, 255, 0.523);
+}
+
+.input-text input::-moz-placeholder{
+    color: rgba(255, 255, 255, 0.523);
+}
+
+.input-text input:-ms-input-placeholder{
+    color: rgba(255, 255, 255, 0.523);
+}
+
+.input-text input::-ms-input-placeholder{
+    color: rgba(255, 255, 255, 0.523);
+}
+
+.input-text input::placeholder{
+    color: rgba(255, 255, 255, 0.523);
+}
+.auth .input-text i{
+    position: absolute;
+    right: 20px;
+    top: -50%;
+    font-size: 20px;
+}
+.auth .btn{
+    width: 100%;
+    height: 45px;
+    background:#fff ;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .5s ;
+}
+.auth .btn:hover{
+    letter-spacing: 3px;
+    background: #ffffffb3;
+}
+/*##############************################*/
+.updated-container {
+    background: url(GT.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:absolute;
+    top: 44.5%;
+    left: 75%;
+    transform: translate(-50% ,-50%);
+    border-radius: 15px;
+    width: 750px;
+    height: 700px;
+    overflow: hidden;
+    display: flex;
+    z-index: 55;
+}
+
+.updated-container .updated-board{
+    position: absolute;
+    left: 70%;
+    height: 100%;
+    width: 100%;
+    border-radius: 50% 20%;
+    top: -50%;
+}
+.updated-container .updated-board img{
+    width: 50%;
+    height:700px ;
+    position: absolute;
+    left: -20%;
+    z-index: -1;
+}
+.updated-container .sys h1{
+    position: absolute;
+    left :37%;
+}
+#passwordInput .input-text  , #retrieveDomain .input-text{
+top: 80px;
+left: 50px;
+}
+#passwordInput .input-text input , #retrieveDomain .input-text input{
+border-radius: 10px;
+}
+
+#retrieveButton ,#storeButton{
+    width: 263px;
+    height: 45px;
+    background:#9c27b0 ;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .8s ;
+    position: absolute;
+    left: 50px;
+    top: 38%;
+    z-index: 999;
+}
+#retrieveButton:hover ,#storeButton:hover{
+    letter-spacing: 3px;
+    background: rgba(195, 107, 210, 0.738);
+}
+#retrieveButton{
+    left: 330px;
+    top: 12%;
+    width: 175px;
+}
+
+#output{
+    color: antiquewhite;
+}
+
+::-webkit-scrollbar{
+    width: 15px;
+}
+::-webkit-scrollbar-track{
+    border-radius: 30px 30px 0 30px;
+}
+::-webkit-scrollbar-thumb{
+    background: linear-gradient(45deg,#673ab7,#e91e63,#ffc107 );
+    border-radius: 12px;
+    cursor: pointer;
+    z-index: 999;
+}
+::-webkit-scrollbar-corner{
+    border-radius: 5px 0 0 0;
+}
+
+
+
+
+/*##############************################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container .board button{
+    position: relative;
+    background-color: transparent;
+    color: black;
+    padding: 10px 15px;
+    transition: .5s;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    border: none;
+    margin-right: 25px;
+}
+.container .board button:hover{
+    color: #607D8B;
+    letter-spacing: .2em;
+    box-shadow: 0 0 35px #607D8B;
+}
+.container .board button::before{
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background-color: rgba(96, 125, 139 , .38);
+}
+.container .board .btn{
+    position: relative;
+    top: 60%;
+    left: 1%;
+}
+.container .board button span{
+    position: relative;
+    background-color: transparent;
+    z-index: 600;
+}
+.container .board button i{
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+.container .board button i::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 80%;
+    width: 10px;
+    height: 4px;
+    background: #607D8B;
+    transform: translateX(-50%) skewx(325deg);
+    transition: .5s;
+}
+.container .board button:hover i::before{
+    width: 20px;
+    left: 20%;
+}
+
+.container .board button i::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 10px;
+    height: 4px;
+    background: #607D8B;
+    transform: translateX(-50%) skewx(325deg);
+    transition: .5s;
+}
+.container .board button:hover i::after{
+    width: 20px;
+    left: 80%;
+}
+
+
+
+.vault{
+    background: transparent;
+    width: 100%;
+    height: 500px;
+    padding: 20px;
+    display: flex;
+    flex-basis: auto;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    overflow-y: auto; /* Enable vertical scroll bar */
+    max-height: 500px; /* Set a maximum height for the container */
+}
+.vault .cell{
+    display: flex;
+    flex-direction: row;
+}
+.vault .cell p.domainPW{
+    margin-right: 50px;
+    position: relative;
+    top: 40px;
+    font-size: 16px;
+    color: #f44336;
+    margin-left: 2px;
+}
+.vault .cell p.domainNM{
+    font-size: 20px;
+    font-weight: 700;
+    color: #4caf50;
+    margin-left: 80px;
+}
+.vault .cell .guide-nm{
+    margin-left: 150px;
+}
+.vault .cell .guide-pw{
+    margin-left: 9px;
+}
+.vault .guide::after{
+    content: '';
+    width: 1px;
+    background: #333;
+    height: 650px;
+    position: absolute;
+    bottom: 11%;
+    transform: rotate(90deg);
+    right: 65%;
+}
+.vault-after {
+position: absolute;
+content: '';
+width: 1px;
+background: #333;
+top: 30%; /* Adjust the position as needed */
+left: 18.5%; /* Adjust the position as needed */
+}
+.siem{
+    background: url(GT.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:absolute;
+    top: 17px;
+    left: 10px;
+    border-radius: 15px;
+    width: 750px;
+    height: 700px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Enable vertical scroll bar */
+    max-height: 700px; /* Set a maximum height for the container */
+    resize: vertical;
+    padding-top: 100px;
+}
+#siem h2{
+    position: absolute;
+    top: 3%;
+    left :50%;
+    transform: translateX(-50%);
+    font-weight:700;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    color: red;
+    text-shadow: 0 0 15px #ea9898;
+    
+}
+
+
+#siem .actions{
+    display: flex;
+    flex-direction: row;
+    margin-top: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    min-height: 50px;
+}
+#siem:nth-child(2){
+    position: absolute;
+    padding-top: 100px;
+}
+#siem .actions span.who{
+    margin-right: 10px;
+    position: relative;
+    font-size: 22px;
+    color: #1ca600;
+    margin-left: 15px;
+}
+#siem .actions p.action{
+    font-size: 15px;
+    font-weight: 700;
+    color: #9647c4;
+    
+}
+#siem .actions span.time{
+    color: #ea9898;
+}
+#siem .actions span.date{
+    color: #9e9e9e;
+}
+#siem .actions span.domainUrl{
+    color: #e91e63;
+}
+.bx-x{
+    font-size: 50px;
+    color: #333;
+    position: relative;
+    bottom: 10px;
+    cursor: pointer;
+    margin-top: 0;
+}
+
+@-webkit-keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 2000px;
+  }
+}
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 700px;
+  }
+}
+
+
+.typewriter {
+  -webkit-animation: typewriter 7s steps(150) forwards;
+          animation: typewriter 7s steps() forwards;
+}
+.canvas{
+    position:absolute;
+    bottom: 7px;
+    left: 10px;
+    border-radius: 15px;
+    width: 750px;
+    height: 280px;
+    background: black;
+    z-index: -1;
+}
+.hidden{
+    opacity: 0;
+    -webkit-filter:blur(5px) ;
+            filter:blur(5px) ;
+    transform: translateX(-100%);
+    transition: all 3.5s;
+}
+.show{
+    opacity: 1;
+    -webkit-filter:blur(0) ;
+            filter:blur(0) ;
+    transform: translateX(0);
+}
+@media(prefers-reduced-motion){
+    .hidden{
+        transition: none;
+    }
+}
+#preloader{
+    background: #000;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: -2.4px;
+    z-index: 100;
+}
+#circle{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    width: 120px;
+    height: 120px;
+}
+.loader{
+    padding: 5px;
+    width: calc(100% - 0px);
+    height: calc(100% - 0px);
+    border: 3px solid #e91e63;
+    border-radius: 50%;
+    border-bottom: 3px solid #000;
+    border-top: 3px solid #000;
+    -webkit-animation: rotate 5s linear infinite;
+            animation: rotate 5s linear infinite;
+}
+@-webkit-keyframes rotate {
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@keyframes rotate {
+    100%{
+        transform: rotate(360deg);
+    }
+}
