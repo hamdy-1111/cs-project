@@ -66,6 +66,20 @@ function validateAdmin() {
         board.classList.add('updated-board');
         document.querySelector('.canvas').style.display='flex';
         document.querySelector('.board .btn').style.display='block';
+        // Create the outer box element
+        const outerBox = document.createElement('div');
+        outerBox.classList.add('box');
+        // Create the first wave element
+        const waveOne = document.createElement('div');
+        waveOne.classList.add('wave', '-one');
+        // Create the second wave element
+        const waveTwo = document.createElement('div');
+        waveTwo.classList.add('wave', '-two');
+        // Append the wave elements to the outer box
+        outerBox.appendChild(waveOne);
+        outerBox.appendChild(waveTwo);
+        // Append the outer box to the document body
+        container.appendChild(outerBox);
         displayLogsFromLocalStorage();
         // Get the current date and time
         const currentDateTime = new Date();
