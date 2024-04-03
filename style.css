@@ -167,7 +167,12 @@ body{
     display: flex;
     z-index: 55;
 }
+@import(max-width=900px){
+   .updated-container{
+      background: black ;
+}
 
+}
 .updated-container .updated-board{
     position: absolute;
     left: 70%;
@@ -552,6 +557,7 @@ left: 18.5%; /* Adjust the position as needed */
         transform: rotate(360deg);
     }
 }
+
 .box {
     display: none;
 }
