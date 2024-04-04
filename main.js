@@ -659,8 +659,6 @@ hiddenElements.forEach((el) =>observer.observe(el));
         setTimeout(hidePreloader, 1500);
 
 
-        // Hide the preloader after 3 seconds
-        setTimeout(hidePreloader, 1500);
   document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
       const radar = document.querySelector('.radar');
@@ -688,7 +686,6 @@ hiddenElements.forEach((el) =>observer.observe(el));
       radar.style.setProperty('--yOffset', yOffset + 'px');
     });
   });
-
 
 
 
