@@ -362,7 +362,7 @@ setVaultAfterHeight();
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+function updateChart() {
     // Retrieve logs from localStorage
     const logsArray = JSON.parse(localStorage.getItem('logs')) || [];
 
@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Loop through logs to count actions by day
     logsArray.forEach(log => {
-        const date = log.date;
+        const date = formatDate(log.date); // Format the date
         const action = log.action;
 
         // Check if the action should be counted
@@ -411,6 +411,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+}
+
+// Function to format the date as YYYY-MM-DD
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Event listener to update chart on DOMContentLoaded and button clicks
+document.addEventListener('DOMContentLoaded', updateChart);
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', updateChart);
 });
 
 
@@ -642,6 +657,37 @@ hiddenElements.forEach((el) =>observer.observe(el));
 
         // Hide the preloader after 3 seconds
         setTimeout(hidePreloader, 1500);
+
+
+        // Hide the preloader after 3 seconds
+        setTimeout(hidePreloader, 1500);
+  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(event) {
+      const radar = document.querySelector('.radar');
+      const radarSize = 1000; // Adjust the radar size as needed
+      const boundingRect = document.documentElement.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const clickX = event.clientX;
+      const clickY = event.clientY;
+
+      // Calculate the center of the radar
+      const radarCenterX = viewportWidth / 2;
+      const radarCenterY = viewportHeight / 2;
+
+      // Calculate the offsets to position the radar centered around the click
+      let xOffset = clickX - radarCenterX;
+      let yOffset = clickY - radarCenterY;
+
+      // Limit xOffset and yOffset to specified ranges
+      xOffset = Math.max(34, Math.min(xOffset, 182));
+      yOffset = Math.max(41, Math.min(yOffset, 172));
+
+      // Set custom properties to adjust pseudo-element position
+      radar.style.setProperty('--xOffset', xOffset + 'px');
+      radar.style.setProperty('--yOffset', yOffset + 'px');
+    });
+  });
 
 
 
