@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/svg+xml" href="xbox-logo.svg">
 </head>
 <body>
     <div id="preloader">
@@ -32,36 +33,36 @@
     </h1>
     <div class="input-text">
     <!--     <label for="masterKey"></label><br>
-    -->    <input type="text" id="adminname" placeholder="Admin name" >
+    -->    <input type="text" id="adminname" onkeypress="handleEnterKeyPress(event, validateAdmin)" placeholder="Admin name" >
     <i class='bx bx-user'></i>
     </div>
     <div class="input-text">
     <!--     <label for="masterKey"></label><br>
-    -->    <input type="text" id="adminId" placeholder="Admin id" >
+    -->    <input type="text" id="adminId" onkeypress="handleEnterKeyPress(event, validateAdmin)" maxlength="9" placeholder="Admin id" >
     <i class='bx bxs-id-card'></i>
     </div>
     <div class="input-text">
-        <input type="password" id="masterKey" placeholder="Master key" required>
+        <input type="password" id="masterKey" placeholder="Master key" onkeypress="handleEnterKeyPress(event, validateAdmin)" required>
         <i class='bx bxs-key' ></i>
     </div>
-    <button onclick="validateAdmin()" class="btn">login</button>
+    <button onclick="validateAdmin()" class="btn soundButton" data-sound="clickSoundGroup1">login</button>
 </div>
 <div class="op" id="adminActions" ><!-- style="display:none" -->
 <div id="passwordInput" style="display: none;">
     <div class="input-text">
-    <input type="text" id="domain" placeholder="Domain">
+    <input type="text" id="domain" onkeypress="handleEnterKeyPress(event, storePassword)" placeholder="Domain">
     </div>
     <div class="input-text">
-    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="password" onkeypress="handleEnterKeyPress(event, storePassword)" placeholder="Password">
     </div>
-    <button id="storeButton">Store Password</button>
+    <button id="storeButton" class="soundButton" data-sound="clickSoundGroup1">Store Password</button>
 </div>
 
 <div id="retrieveDomain" style="display: none;">
     <div class="input-text">
-    <input type="text" id="retrieveDomainInput" placeholder="domain" title="put the domain and get password">
+    <input type="text" id="retrieveDomainInput" onkeypress="handleEnterKeyPress(event, retrievePassword)" placeholder="domain" title="put the domain and get password">
     </div>
-    <button id="retrieveButton">Retrieve Password</button>
+    <button id="retrieveButton" class="soundButton" data-sound="clickSoundGroup1">Retrieve Password</button>
     <div class="vault">
         <div class="cell guide">
             <p class="domainPW guide-pw">password</p>
@@ -78,8 +79,8 @@
 <div class="board">
     <img src="log in.jpeg" alt="">
     <div class="btn" style="display:none;">
-        <button  id="addButton"><span>add</span><i></i></button>
-        <button  id="getButton"><span>get</span><i></i></button>
+        <button  id="addButton" class="soundButton" data-sound="clickSoundGroup1"><span>add</span><i></i></button>
+        <button  id="getButton" class="soundButton" data-sound="clickSoundGroup1"><span>get</span><i></i></button>
     </div>
 </div>
 </div>
@@ -92,6 +93,7 @@
     <canvas id="actionChart" ></canvas>
 </div>
 
+<audio id="clickSoundGroup1" src="mixkit-cool-interface-click-tone-2568.wav"></audio> 
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

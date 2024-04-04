@@ -3,7 +3,8 @@
     const admins = [
         { name: "hamdy", id: "463647338", masterKey: "noway" },
         { name: "halim", id: "012345678", masterKey: "noway" },
-        { name: "mo", id: "123456789", masterKey: "noway" }
+        { name: "mo", id: "123456789", masterKey: "noway" },
+        { name: "me", id: "000000000", masterKey: "ramadan" }
     ];
 let masterKey = admins[0].masterKey
 console.log(masterKey)
@@ -40,12 +41,12 @@ function validateAdmin() {
     }
 
     // Hash and encrypt admin credentials
-    const hashedName = sha256(adminname);
+    const hashedName = sha256(adminname.toLowerCase());
     const hashedId = sha256(adminId);
     const encryptedMasterKey = sha256(masterKey);
 
     // Find admin in the list
-    const admin = admins.find(a => sha256(a.name) === hashedName && sha256(a.id) === hashedId && sha256(a.masterKey) === encryptedMasterKey);
+    const admin = admins.find(a => sha256(a.name.toLowerCase()) === hashedName && sha256(a.id) === hashedId && sha256(a.masterKey) === encryptedMasterKey);
 
     if (admin) {
         // Successful login
@@ -82,8 +83,9 @@ function validateAdmin() {
         container.appendChild(outerBox);
         displayLogsFromLocalStorage();
         // Get the current date and time
-        const currentDateTime = new Date();
-        logs("logged in",'' , currentDateTime,adminname);
+        const [time, date] = [new Date(), new Date()];
+        logs("logged in", '', time, date, adminname);
+
     } else {
         // Failed login
 
@@ -98,7 +100,7 @@ function getInputValue(id) {
 }
 
 // Function to show error message with SweetAlert
-function showError(message , title) {
+function showError(message, title) {
     Swal.fire({
         icon: 'info',
         title: title,
@@ -107,14 +109,78 @@ function showError(message , title) {
             popup: 'swal2-popup-dark',
             title: 'swal2-title-dark',
             content: 'swal2-content-dark',
-            confirmButton: 'swal2-confirm-dark'
+            confirmButton: 'swal2-confirm-dark soundButton', // Add the class here
         },
         background: 'rgba(0, 0, 0, 0.53)', // Update background color to match your website
         backdrop: 'rgba(0, 0, 0, 0.5)', // Update backdrop color to match your website
         cancelButtonColor: '#6c757d', // Update cancel button color to match your website
-        confirmButtonColor: '#dc3545' // 
+        confirmButtonColor: '#dc3545', // Update confirm button color
+        didOpen: () => {
+            // Add data-sound attribute after the Swal modal is opened
+            const confirmBtn = document.querySelector('.swal2-confirm');
+            confirmBtn.setAttribute('data-sound', 'clickSoundGroup1');
+
+            // Set up event listener for the confirm button
+            confirmBtn.addEventListener('click', function (event) {
+                const soundId = this.getAttribute('data-sound');
+                if (soundId) {
+                    playSound(soundId);
+                }
+            });
+        }
     });
 }
+
+// Function to play sound
+function playSound(soundId) {
+    const audio = document.getElementById(soundId);
+    if (audio) {
+        audio.play();
+    }
+}
+// Global function to handle Enter key press event
+function handleEnterKeyPress(event, callback) {
+    if (event.key === 'Enter') {
+        callback();
+    }
+}
+
+
+/* sound effects  */
+document.addEventListener('DOMContentLoaded', function () {
+    // Get all elements with the class 'soundButton' and set up event listeners
+    var buttons = document.querySelectorAll('.soundButton');
+    buttons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            var soundId = this.getAttribute('data-sound');
+
+            // Check if the element has the 'fileLink' class
+            var isFileLink = button.classList.contains('fileLink');
+
+            // Play sound if soundId is defined
+            if (soundId) {
+                if (isFileLink) {
+                    event.preventDefault(); // Prevent the default behavior of the link for file links
+                    playSound(soundId);
+
+                    // Continue with the default behavior after a delay (e.g., 500 milliseconds)
+                    setTimeout(function () {
+                        window.location.href = button.getAttribute('href');
+                    }, 500);
+                } else {
+                    playSound(soundId); // Play sound without preventing the default behavior for regular links
+                }
+            }
+            // Your other functionality here
+        });
+    });
+    function playSound(soundId) {
+        var audio = document.getElementById(soundId);
+        if (audio) {
+            audio.play();
+        }
+    }
+});
 
 
 // Function to hide element by selector
@@ -191,10 +257,10 @@ function retrievePassword() {
     vault.appendChild(cell);
     cell.appendChild(domainPW);
     cell.appendChild(domainNM);
+    adminname = getInputValue("adminname");
     // Get the current date and time
-    const currentDateTime = new Date();
-    const adminname = getInputValue("adminname");
-    logs("Retrieved password for ", domain, currentDateTime, adminname);
+    const [time, date] = [new Date(), new Date()];
+    logs("Retrieved password for ", domain, time, date, adminname);
     console.log(`Retrieved password for ${domain}: ${decryptedPassword}`);
 }
 
@@ -227,10 +293,10 @@ function storePassword() {
 
     // Encrypt password
     const encryptedPassword = encrypt(password, masterKey);
-    // Get the current date and time
-    const currentDateTime = new Date();
     const adminname = getInputValue("adminname");
-    logs("stored password for ", domain, currentDateTime, adminname);
+    // Get the current date and time
+    const [time, date] = [new Date(), new Date()];
+    logs("stored password for ", domain, time, date, adminname);
     domainInput.value = ''; // Clear the domain input field
     document.getElementById('password').value = ''; // Clear the password input field
     // Securely store password
@@ -296,59 +362,57 @@ setVaultAfterHeight();
 
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Retrieve logs from localStorage or an API
-            const logsArray = JSON.parse(localStorage.getItem('logs')) || [];
+document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve logs from localStorage
+    const logsArray = JSON.parse(localStorage.getItem('logs')) || [];
 
-            // Define the actions to count and their corresponding colors
-            const actionsToCount = ["logged in", "Retrieved password for ", "stored password for "];
-            const actionColors = ["#e91e63", "#03a9f4", "#66bb6a"];
+    // Define the actions to count and their corresponding colors
+    const actionsToCount = ["logged in", "Retrieved password for", "Stored password for"];
+    const actionColors = ["#e91e63", "#03a9f4", "#66bb6a"];
 
-            // Initialize counts object
-            const counts = {};
+    // Initialize counts object
+    const counts = {};
 
-            // Loop through logs to count actions by day
-            logsArray.forEach(log => {
-                const date = log.date;
-                const action = log.action;
+    // Loop through logs to count actions by day
+    logsArray.forEach(log => {
+        const date = log.date;
+        const action = log.action;
 
-                // Check if the action should be counted
-                if (actionsToCount.includes(action)) {
-                    if (!counts[date]) {
-                        counts[date] = {};
+        // Check if the action should be counted
+        if (actionsToCount.includes(action)) {
+            counts[date] = counts[date] || {};
+            counts[date][action] = (counts[date][action] || 0) + 1;
+        }
+    });
+
+    // Prepare data for Chart.js
+    const labels = Object.keys(counts).sort(); // Sort labels chronologically
+    const datasets = actionsToCount.map((action, index) => ({
+        label: action,
+        data: labels.map(date => counts[date]?.[action] || 0),
+        backgroundColor: actionColors[index] // Assign color based on index
+    }));
+
+    // Create Chart.js chart
+    const ctx = document.getElementById('actionChart').getContext('2d');
+    const actionChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
                     }
+                }]
+            }
+        }
+    });
+});
 
-                    counts[date][action] = counts[date][action] ? counts[date][action] + 1 : 1;
-                }
-            });
-
-            // Prepare data for Chart.js
-            const labels = Object.keys(counts);
-            const datasets = actionsToCount.map((action, index) => ({
-                label: action,
-                data: labels.map(date => counts[date]?.[action] || 0),
-                backgroundColor: actionColors[index] // Assign color based on index
-            }));
-
-            // Create Chart.js chart
-            const ctx = document.getElementById('actionChart').getContext('2d');
-            const actionChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: datasets
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
-            });
-        });
 
 
 
@@ -362,23 +426,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function displayLogsFromLocalStorage() {
-    // Retrieve logs from localhost
+    // Retrieve logs from local storage
     const logsArray = JSON.parse(localStorage.getItem('logs')) || [];
 
     // Call the function to display logs on the page
     logsArray.forEach(log => {
         // Create log elements and append them to the page
-        logs(log.action, log.domainUrl, new Date(), log.adminname);
+        logs(log.action, log.domainUrl, log.time, log.date, log.adminname);
     });
 }
 
-function logs(action, domainUrl, currentDateTime, adminname) {
+
+function logs(action, domainUrl, time, date, adminname) {
     // Call the siem container
     const siemContainer = document.getElementById('siem');
-/*     if (!siemContainer) {
-        console.error('SIEM container not found');
-        return; // Exit the function if siemContainer is not found
-    } */
 
     // Create the actions container
     const actionsContainer = document.createElement('div');
@@ -401,79 +462,112 @@ function logs(action, domainUrl, currentDateTime, adminname) {
     // Add the action description
     actionParagraph.appendChild(document.createTextNode(action));
 
-    //add the domainUrlText
+    // Add the domain URL text
     domainUrlText.appendChild(document.createTextNode(domainUrl));
     actionParagraph.appendChild(domainUrlText);
 
-    // Format the current time as HH:mm:ss
-    const formattedTime = currentDateTime.toLocaleTimeString('en-US', {
+    // Format the time as HH:mm:ss
+    const formattedTime = new Date(time).toLocaleTimeString('en-US', {
         hour12: false,
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'
     });
 
+    // Format the date as yyyy-mm-dd
+    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    }).replace(/\//g, '-');
+
     // Create the time span
     const timeSpan = document.createElement('span');
     timeSpan.classList.add('time');
     timeSpan.textContent = formattedTime;
-
-    // Format the current date as yyyy/mm/dd
-    const formattedDate = currentDateTime.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-    }).replace(/\//g, '-'); // Replace '/' with '-' for consistency
 
     // Create the date span
     const dateSpan = document.createElement('span');
     dateSpan.classList.add('date');
     dateSpan.textContent = formattedDate;
 
-    // Append the date and time spans to the action paragraph
+    // Append the time and date spans to the action paragraph
     actionParagraph.appendChild(document.createTextNode(' '));
     actionParagraph.appendChild(timeSpan);
-    actionParagraph.appendChild(document.createTextNode(' ')); // Add space between date and time
+    actionParagraph.appendChild(document.createTextNode(' ')); // Add space between time and date
     actionParagraph.appendChild(dateSpan);
 
     // Append the action paragraph to the actions container
     actionsContainer.appendChild(actionParagraph);
 
-    // Create the delete icon
-    const deleteIcon = document.createElement('i');
-    deleteIcon.classList.add('bx', 'bx-x');
+// Create the delete icon
+const deleteIcon = document.createElement('i');
+deleteIcon.classList.add('bx', 'bx-x', 'soundButton');
+deleteIcon.setAttribute('data-sound', 'clickSoundGroup1');
+
+// Add event listener to the delete icon
+deleteIcon.addEventListener('click', function(event) {
+    var soundId = this.getAttribute('data-sound');
+    playSound(soundId);
+    // Your other delete functionality here
+});
 
     // Add onclick event listener to delete the log entry
     deleteIcon.addEventListener('click', function() {
-        // Open a Swal prompt for the admin to enter the master key
-        Swal.fire({
-            title: 'Enter Master Key',
-            input: 'password',
-            inputAttributes: {
-                autocapitalize: 'off',
-                autocorrect: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Confirm',
-            cancelButtonText: 'Cancel',
-            showLoaderOnConfirm: true,
-            background: 'rgba(0, 0, 0, 0.53)', // Update background color to match your website
-            backdrop: 'rgba(0, 0, 0, 0.5)', // Update backdrop color to match  website
-            cancelButtonColor: '#6c757d', // Update cancel button color to match  website
-            confirmButtonColor: '#dc3545',// 
-            preConfirm: (masterKey) => {
-                // Validate the entered master key
-                if (sha256(masterKey) === sha256(admins[0].masterKey)) {
-                    // Remove the parent actions container when delete icon is clicked
-                    siemContainer.removeChild(actionsContainer);
-                    // Remove the log entry from the local storage
-                    removeLogFromLocalStorage(action);
-                } else {
-                    Swal.showValidationMessage('Incorrect master key');
-                }
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-        });
+// Function to set up event listeners for Swal buttons
+function setupSwalButton(buttonClass) {
+    // Find the button element
+    const button = document.querySelector(buttonClass);
+    
+    // Add data-sound attribute after the Swal modal is opened
+    button.setAttribute('data-sound', 'clickSoundGroup1');
+
+    // Set up event listener for the button
+    button.addEventListener('click', function(event) {
+        const soundId = this.getAttribute('data-sound');
+        if (soundId) {
+            playSound(soundId);
+        }
+    });
+}
+
+// Open a Swal prompt for the admin to enter the master key
+Swal.fire({
+    title: 'Enter Master Key',
+    input: 'password',
+    inputAttributes: {
+        autocapitalize: 'off',
+        autocorrect: 'off'
+    },
+    showCancelButton: true,
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
+    showLoaderOnConfirm: true,
+    background: 'rgba(0, 0, 0, 0.53)',
+    backdrop: 'rgba(0, 0, 0, 0.5)',
+    cancelButtonColor: '#6c757d',
+    confirmButtonColor: '#dc3545',
+    didOpen: () => {
+        // Set up event listener for the confirm button
+        setupSwalButton('.swal2-confirm');
+        
+        // Set up event listener for the cancel button
+        setupSwalButton('.swal2-cancel');
+    },
+    preConfirm: (masterKey) => {
+        // Validate the entered master key
+        if (sha256(masterKey) === sha256(admins[0].masterKey)) {
+            // Remove the parent actions container when delete icon is clicked
+            siemContainer.removeChild(actionsContainer);
+            // Remove the log entry from the local storage
+            removeLogFromLocalStorage(action);
+        } else {
+            Swal.showValidationMessage('Incorrect master key');
+        }
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+});
+
     });
 
     // Append the delete icon to the actions container
@@ -483,9 +577,9 @@ function logs(action, domainUrl, currentDateTime, adminname) {
     siemContainer.appendChild(actionsContainer);
     actionsContainer.classList.add('typewriter');
 
-    // Add the new log entry to the logs array in local storage
-    addLogToLocalStorage(action, domainUrl, formattedTime, formattedDate, adminname);
+    addLogToLocalStorage(action, domainUrl, time, date, adminname)
 }
+
 
 function addLogToLocalStorage(action, domainUrl, time, date, adminname) {
     // Retrieve logs array from local storage or initialize an empty array
@@ -503,6 +597,7 @@ function addLogToLocalStorage(action, domainUrl, time, date, adminname) {
     // Save updated logs array to local storage
     localStorage.setItem('logs', JSON.stringify(logsArray));
 }
+
 
 function removeLogFromLocalStorage(action) {
     // Retrieve logs array from local storage
