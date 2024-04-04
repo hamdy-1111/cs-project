@@ -4,7 +4,7 @@
         { name: "hamdy", id: "463647338", masterKey: "noway" },
         { name: "halim", id: "012345678", masterKey: "noway" },
         { name: "mo", id: "123456789", masterKey: "noway" },
-        { name: "me", id: "000000000", masterKey: "ramadan" }
+        { name: "me", id: "000000000", masterKey: "key" }
     ];
 let masterKey = admins[0].masterKey
 console.log(masterKey)
