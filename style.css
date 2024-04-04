@@ -894,3 +894,117 @@ left: 25%; /* Adjust the position as needed */
 }
 } 
 /* end resposive */
+.radar{
+    position: fixed;
+  width: 30vmin;
+  height: 30vmin;
+  border-radius: 50%;
+  --border-size: 3px;
+  --border-angle: 0turn;
+  --grid-bg: radial-gradient(
+    transparent 69%,
+    limegreen 69%,
+    limegreen 70%,
+    transparent 70%
+  );
+  --line-bg: transparent 50%, limegreen 50%, transparent 50.5%;
+  background-image: conic-gradient(from var(--border-angle), transparent 10%, #0d0a 99%, limegreen 99.5%), linear-gradient(0deg, var(--line-bg)), linear-gradient(45deg, var(--line-bg)), linear-gradient(90deg, var(--line-bg)), linear-gradient(135deg, var(--line-bg)), var(--grid-bg), var(--grid-bg), var(--grid-bg);
+  background-size: cover, cover, cover, cover, cover, 25% 25%, 50% 50%, 75% 75%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  border: solid 0.5vmin limegreen;
+  -webkit-animation: bg-spin 3s linear infinite;
+          animation: bg-spin 3s linear infinite;
+  position: relative;
+  -webkit-filter: drop-shadow(0px 0px 10vmin black) blur(0.5px) contrast(200%);
+          filter: drop-shadow(0px 0px 10vmin black) blur(0.5px) contrast(200%);
+overflow: hidden;
+display: none;
+}
+@-webkit-keyframes bg-spin {
+  to {
+    --border-angle: 1turn;
+  }
+}
+@keyframes bg-spin {
+  to {
+    --border-angle: 1turn;
+  }
+}
+.radar::after {
+    /* Your existing styles */
+    content: "";
+    display: block;
+    position: absolute;
+    top: calc(var(--yOffset) - 1vmin); /* Adjust top position */
+    left: calc(var(--xOffset) - 1vmin); /* Adjust left position */
+    width: 2vmin;
+    height: 2vmin;
+    background: limegreen;
+    border-radius: 50%;
+    -webkit-animation: move 1s ease-in-out forwards;
+    animation: move 1s ease-in-out forwards;
+}
+
+
+@-webkit-keyframes move {
+  33% {
+    transform: translate(25vmin, 10vmin);
+  }
+  66% {
+    transform: translate(15vmin, 30vmin);
+  }
+  100% {
+    transform: translate(0vmin, 0vmin);
+  }
+}
+@keyframes move {
+  33% {
+    transform: translate(25vmin, 10vmin);
+  }
+  66% {
+    transform: translate(15vmin, 30vmin);
+  }
+  100% {
+    transform: translate(0vmin, 0vmin);
+  }
+}
+.radar::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: solid 1vmin limegreen;
+  -webkit-animation: scale 3s linear infinite;
+          animation: scale 3s linear infinite;
+}
+@-webkit-keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+@keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
