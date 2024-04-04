@@ -662,7 +662,7 @@ hiddenElements.forEach((el) =>observer.observe(el));
   document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
       const radar = document.querySelector('.radar');
-      const radarSize = 1000; // Adjust the radar size as needed
+      const radarSize = 1700; // Adjust the radar size as needed
       const boundingRect = document.documentElement.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
@@ -684,6 +684,11 @@ hiddenElements.forEach((el) =>observer.observe(el));
       // Set custom properties to adjust pseudo-element position
       radar.style.setProperty('--xOffset', xOffset + 'px');
       radar.style.setProperty('--yOffset', yOffset + 'px');
+      // Hide the point after 5 seconds
+      setTimeout(function() {
+        radar.style.removeProperty('--xOffset');
+        radar.style.removeProperty('--yOffset');
+      }, 5000);
     });
   });
 
