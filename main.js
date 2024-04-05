@@ -1,9 +1,9 @@
 
     // Define your admin credentials here
     const admins = [
-        { name: "hamdy", id: "463647338", masterKey: "noway" },
-        { name: "halim", id: "012345678", masterKey: "noway" },
-        { name: "mo", id: "123456789", masterKey: "noway" },
+        { name: "hamdy", id: "463647338", masterKey: "key" },
+        { name: "halim", id: "012345678", masterKey: "key" },
+        { name: "mo", id: "123456789", masterKey: "key" },
         { name: "me", id: "000000000", masterKey: "key" }
     ];
 let masterKey = admins[0].masterKey
@@ -514,6 +514,57 @@ function logs(action, domainUrl, time, date, adminname) {
 
     // Append the action paragraph to the actions container
     actionsContainer.appendChild(actionParagraph);
+
+
+// Function to handle deletion of all logs
+function deleteAllLogs() {
+    // Open a Swal prompt for the admin to enter the master key
+    Swal.fire({
+        title: 'Enter Master Key',
+        text: 'u gonna delete all the history',
+        input: 'password',
+        inputAttributes: {
+            autocapitalize: 'off',
+            autocorrect: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        showLoaderOnConfirm: true,
+        background: 'rgba(0, 0, 0, 0.53)',
+        backdrop: 'rgba(0, 0, 0, 0.5)',
+        cancelButtonColor: '#6c757d',
+        confirmButtonColor: '#dc3545',
+        didOpen: () => {
+            // Set up event listener for the confirm button
+            setupSwalButton('.swal2-confirm');
+
+            // Set up event listener for the cancel button
+            setupSwalButton('.swal2-cancel');
+        },
+        preConfirm: (masterKey) => {
+            // Validate the entered master key
+            if (sha256(masterKey) === sha256(admins[0].masterKey)) {
+                // Remove all action divs from the SIEM container
+                const actionDivs = siemContainer.querySelectorAll('.actions');
+                actionDivs.forEach(actionDiv => {
+                siemContainer.removeChild(actionDiv);
+                });
+
+                // Clear the logs from local storage (assuming logs are stored in an array)
+                localStorage.removeItem('logs');
+            } else {
+                Swal.showValidationMessage('Incorrect master key');
+            }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    });
+}
+
+// Add event listener to the delete all logs button
+deleteAllLogsButton.addEventListener('click', deleteAllLogs);
+
+
 
 // Create the delete icon
 const deleteIcon = document.createElement('i');
