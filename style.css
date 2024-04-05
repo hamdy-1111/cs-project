@@ -1007,3 +1007,115 @@ overflow: hidden;
   inherits: true;
   initial-value: 0turn;
 }
+
+
+#deleteAllLogsButton {
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  height: 45px;
+  width: 130px;
+  opacity: 1;
+  background-color: #f44336;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #000000;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+  padding: 10px;
+  position: relative;
+  left: 80%;
+  top: -30px;
+}
+
+
+
+#deleteAllLogsButton:hover {
+  -webkit-animation: bn54rotate 0.7s ease-in-out both;
+          animation: bn54rotate 0.7s ease-in-out both;
+}
+
+#deleteAllLogsButton:hover #deleteAllLogsButtonspan {
+  -webkit-animation: bn54storm 0.7s ease-in-out both;
+          animation: bn54storm 0.7s ease-in-out both;
+  -webkit-animation-delay: 0.06s;
+          animation-delay: 0.06s;
+}
+
+@-webkit-keyframes bn54rotate {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bn54rotate {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+@-webkit-keyframes bn54storm {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  25% {
+    transform: translate3d(4px, 0, 0) translateZ(0);
+  }
+  50% {
+    transform: translate3d(-3px, 0, 0) translateZ(0);
+  }
+  75% {
+    transform: translate3d(2px, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+}
+
+@keyframes bn54storm {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  25% {
+    transform: translate3d(4px, 0, 0) translateZ(0);
+  }
+  50% {
+    transform: translate3d(-3px, 0, 0) translateZ(0);
+  }
+  75% {
+    transform: translate3d(2px, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+}
