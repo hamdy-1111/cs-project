@@ -910,19 +910,12 @@ left: 25%; /* Adjust the position as needed */
 }
 } 
 /* end resposive */
-<<<<<<< HEAD
 
 /* ###### */
 .radar{
     position: fixed;
   width: 15vmin;
   height: 15vmin;
-=======
-.radar{
-    position: fixed;
-    width: 15vmin;
-    height: 15vmin;
->>>>>>> 85ce7a39a74120b4279052f1dc2f731c9a90962c
   border-radius: 50%;
   --border-size: 3px;
   --border-angle: 0turn;
@@ -930,11 +923,7 @@ left: 25%; /* Adjust the position as needed */
     transparent 69%,
     limegreen 69%,
     limegreen 70%,
-<<<<<<< HEAD
     transparent 70%
-=======
-    transparent 70%;
->>>>>>> 85ce7a39a74120b4279052f1dc2f731c9a90962c
   );
   --line-bg: transparent 50%, limegreen 50%, transparent 50.5%;
   background-image: conic-gradient(from var(--border-angle), transparent 10%, #0d0a 99%, limegreen 99.5%), linear-gradient(0deg, var(--line-bg)), linear-gradient(45deg, var(--line-bg)), linear-gradient(90deg, var(--line-bg)), linear-gradient(135deg, var(--line-bg)), var(--grid-bg), var(--grid-bg), var(--grid-bg);
@@ -948,10 +937,7 @@ left: 25%; /* Adjust the position as needed */
   -webkit-filter: drop-shadow(0px 0px 10vmin black) blur(0.5px) contrast(200%);
           filter: drop-shadow(0px 0px 10vmin black) blur(0.5px) contrast(200%);
 overflow: hidden;
-<<<<<<< HEAD
 z-index: 99;
-=======
->>>>>>> 85ce7a39a74120b4279052f1dc2f731c9a90962c
 }
 @-webkit-keyframes bg-spin {
   to {
@@ -1040,10 +1026,6 @@ z-index: 99;
   initial-value: 0turn;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 85ce7a39a74120b4279052f1dc2f731c9a90962c
 #deleteAllLogsButton {
   position: relative;
   outline: none;
@@ -1153,8 +1135,4 @@ z-index: 99;
   100% {
     transform: translate3d(0, 0, 0) translateZ(0);
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 85ce7a39a74120b4279052f1dc2f731c9a90962c
