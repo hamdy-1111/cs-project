@@ -905,7 +905,8 @@ left: 25%; /* Adjust the position as needed */
     transparent 69%,
     limegreen 69%,
     limegreen 70%,
-    transparent 70%
+    transparent 70%;
+    z-index: 999;
   );
   --line-bg: transparent 50%, limegreen 50%, transparent 50.5%;
   background-image: conic-gradient(from var(--border-angle), transparent 10%, #0d0a 99%, limegreen 99.5%), linear-gradient(0deg, var(--line-bg)), linear-gradient(45deg, var(--line-bg)), linear-gradient(90deg, var(--line-bg)), linear-gradient(135deg, var(--line-bg)), var(--grid-bg), var(--grid-bg), var(--grid-bg);
