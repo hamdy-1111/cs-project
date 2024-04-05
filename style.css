@@ -873,7 +873,6 @@ left: 25%; /* Adjust the position as needed */
     height: 400px;
     max-height: 600px; /* Set a maximum height for the container */
     overflow: auto;
-    z-index: -1;
 }
 #siem .actions{
     display: flex;
