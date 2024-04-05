@@ -1,10 +1,10 @@
 
     // Define your admin credentials here
     const admins = [
-        { name: "hamdy", id: "463647338", masterKey: "noway" },
-        { name: "halim", id: "012345678", masterKey: "noway" },
-        { name: "mo", id: "123456789", masterKey: "noway" },
-        { name: "me", id: "000000000", masterKey: "ramadan" }
+        { name: "hamdy", id: "463647338", masterKey: "key" },
+        { name: "halim", id: "012345678", masterKey: "key" },
+        { name: "mo", id: "123456789", masterKey: "key" },
+        { name: "me", id: "000000000", masterKey: "key" },
     ];
 let masterKey = admins[0].masterKey
 console.log(masterKey)
@@ -59,6 +59,12 @@ function validateAdmin() {
         siem.classList.add('siem');
         siemh2=document.querySelector('#siem h2');
         siemh2.style.display='block'
+        // Create the delete all logs button
+        const deleteAllLogsButton = document.createElement('button');
+        deleteAllLogsButton.textContent = 'Delete all';
+        deleteAllLogsButton.id = 'deleteAllLogsButton';
+        // Append the button to the document body or any desired container
+        siem.appendChild(deleteAllLogsButton);
         document.querySelector('.board img').src='log out.jpeg';
                 // Apply updated container styles
         const container = document.querySelector('.container');
@@ -362,7 +368,7 @@ setVaultAfterHeight();
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+function updateChart() {
     // Retrieve logs from localStorage
     const logsArray = JSON.parse(localStorage.getItem('logs')) || [];
 
@@ -375,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Loop through logs to count actions by day
     logsArray.forEach(log => {
-        const date = log.date;
+        const date = formatDate(log.date); // Format the date
         const action = log.action;
 
         // Check if the action should be counted
@@ -411,8 +417,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-});
+}
 
+// Function to format the date as YYYY-MM-DD
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Event listener to update chart on DOMContentLoaded and button clicks
+document.addEventListener('DOMContentLoaded', updateChart);
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', updateChart);
+});
 
 
 
@@ -511,6 +531,58 @@ deleteIcon.addEventListener('click', function(event) {
     playSound(soundId);
     // Your other delete functionality here
 });
+
+
+
+// Function to handle deletion of all logs
+function deleteAllLogs() {
+    // Open a Swal prompt for the admin to enter the master key
+    Swal.fire({
+        title: 'Enter Master Key',
+        text: 'u gonna delete all the history',
+        input: 'password',
+        inputAttributes: {
+            autocapitalize: 'off',
+            autocorrect: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        showLoaderOnConfirm: true,
+        background: 'rgba(0, 0, 0, 0.53)',
+        backdrop: 'rgba(0, 0, 0, 0.5)',
+        cancelButtonColor: '#6c757d',
+        confirmButtonColor: '#dc3545',
+        didOpen: () => {
+            // Set up event listener for the confirm button
+            setupSwalButton('.swal2-confirm');
+
+            // Set up event listener for the cancel button
+            setupSwalButton('.swal2-cancel');
+        },
+        preConfirm: (masterKey) => {
+            // Validate the entered master key
+            if (sha256(masterKey) === sha256(admins[0].masterKey)) {
+                // Remove all action divs from the SIEM container
+                const actionDivs = siemContainer.querySelectorAll('.actions');
+                actionDivs.forEach(actionDiv => {
+                siemContainer.removeChild(actionDiv);
+                });
+
+                // Clear the logs from local storage (assuming logs are stored in an array)
+                localStorage.removeItem('logs');
+            } else {
+                Swal.showValidationMessage('Incorrect master key');
+            }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    });
+}
+
+// Add event listener to the delete all logs button
+deleteAllLogsButton.addEventListener('click', deleteAllLogs);
+
+
 
     // Add onclick event listener to delete the log entry
     deleteIcon.addEventListener('click', function() {
@@ -642,7 +714,39 @@ hiddenElements.forEach((el) =>observer.observe(el));
 
         // Hide the preloader after 3 seconds
         setTimeout(hidePreloader, 1500);
+        
+  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(event) {
+      const radar = document.querySelector('.radar');
+      const radarSize = 1700; // Adjust the radar size as needed
+      const boundingRect = document.documentElement.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const clickX = event.clientX;
+      const clickY = event.clientY;
 
+      // Calculate the center of the radar
+      const radarCenterX = viewportWidth / 2;
+      const radarCenterY = viewportHeight / 2;
+
+      // Calculate the offsets to position the radar centered around the click
+      let xOffset = clickX - radarCenterX;
+      let yOffset = clickY - radarCenterY;
+
+      // Limit xOffset and yOffset to specified ranges
+      xOffset = Math.max(34, Math.min(xOffset, 182));
+      yOffset = Math.max(41, Math.min(yOffset, 172));
+
+      // Set custom properties to adjust pseudo-element position
+      radar.style.setProperty('--xOffset', xOffset + 'px');
+      radar.style.setProperty('--yOffset', yOffset + 'px');
+      // Hide the point after 5 seconds
+      setTimeout(function() {
+        radar.style.removeProperty('--xOffset');
+        radar.style.removeProperty('--yOffset');
+      }, 8000);
+    });
+  });
 
 
 
