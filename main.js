@@ -58,7 +58,13 @@ function validateAdmin() {
         siem = document.getElementById('siem');
         siem.classList.add('siem');
         siemh2=document.querySelector('#siem h2');
-        siemh2.style.display='block'
+        siemh2.style.display='block';
+                // Create the delete all logs button
+        const deleteAllLogsButton = document.createElement('button');
+        deleteAllLogsButton.textContent = 'Delete all';
+        deleteAllLogsButton.id = 'deleteAllLogsButton';
+        // Append the button to the document body or any desired container
+        siem.appendChild(deleteAllLogsButton);
         document.querySelector('.board img').src='log out.jpeg';
                 // Apply updated container styles
         const container = document.querySelector('.container');
